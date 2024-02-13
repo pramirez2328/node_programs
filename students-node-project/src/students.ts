@@ -2,7 +2,7 @@ const students = [
   {
     id: 1,
     name: 'Alice Johnson',
-    courses: ['Math', 'Science', 'History'],
+    courses: ['Math', 'Spanish', 'History'],
     gpa: 3.65,
     email: 'alice.johnson@example.com',
     phone: '555-111-1111',
@@ -128,7 +128,7 @@ const students = [
   {
     id: 15,
     name: 'Oliver Martinez',
-    courses: ['Science', 'History', 'Geography'],
+    courses: ['Spanish', 'History', 'Geography'],
     gpa: 3.55,
     email: 'oliver.martinez@example.com',
     phone: '555-606-0606',
@@ -218,7 +218,7 @@ const students = [
   {
     id: 25,
     name: 'Yasmine Wilson',
-    courses: ['Math', 'Science', 'Physics'],
+    courses: ['Math', 'Art', 'Physics'],
     gpa: 3.9,
     email: 'yasmine.wilson@example.com',
     phone: '555-789-8901',
@@ -263,7 +263,7 @@ const students = [
   {
     id: 30,
     name: 'David Wu',
-    courses: ['Math', 'Science', 'Computer Science'],
+    courses: ['Math', 'Biology', 'Computer Science'],
     gpa: 3.65,
     email: 'david.wu@example.com',
     phone: '555-234-3456',

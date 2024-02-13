@@ -1,14 +1,14 @@
-import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-
 import Nav from './components/Nav';
-import List from './components/List';
+import Students from './components/students/Students';
+import students from './students';
+import './App.css';
 
 function App() {
   return (
     <div className='container'>
       <Nav />
-      <List />
+      <h2 className='text-center mt-4'>Boston University</h2>
+      <Students students={students} />
     </div>
   );
 }

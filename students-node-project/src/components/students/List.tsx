@@ -1,5 +1,3 @@
-import students from '../students';
-
 interface Student {
   id: number;
   name: string;
@@ -10,13 +8,13 @@ interface Student {
   address: string;
 }
 
-function List() {
+function List({ students }: { students: Student[] }) {
   return (
-    <div className='col-12 d-flex flex-wrap justify-content-between align-content-center'>
+    <div className='col-12 d-flex flex-wrap'>
       {students.map((student: Student) => {
         return (
-          <div className=' col-md-6 col-xl-4 col-xxl-3 p-2'>
-            <div className='card h-100 col-12' key={student.id}>
+          <div className='col-12 col-md-6 col-xl-4 col-xxl-3 p-2' key={student.id}>
+            <div className='card h-100'>
               <h4 className='card-header fw-lighter'>{student.name}</h4>
               <div className='card-body'>
                 <p className='card-text fw-bolder'>
