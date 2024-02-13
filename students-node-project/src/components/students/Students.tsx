@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Filter from './Filter';
-import List from './List';
+import ListMobile from './ListMobile';
+import ListDesktop from './ListDesktop';
 
 interface Student {
   id: number;
@@ -27,9 +28,18 @@ const courses = [
 
 function Students({ students }: { students: Student[] }) {
   const [filterStudents, setStudents] = useState(students);
+  const [value, setValue] = useState('Choose...');
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const handleFilterBy = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const filterBy = e.target.value;
+    setValue(filterBy);
     if (filterBy === 'All Students') {
       setStudents([...students]);
     } else if (filterBy === 'Name') {
@@ -42,10 +52,24 @@ function Students({ students }: { students: Student[] }) {
     }
   };
 
+  let subtitle = '';
+  if (value === 'Choose...') {
+    subtitle = '';
+  } else if (value === 'All Students.') {
+    subtitle = `There are ${students.length} students.`;
+  } else if (value === 'Name') {
+    subtitle = 'Students sorted by name: A-Z.';
+  } else if (value === 'GPA') {
+    subtitle = 'Students sorted by GPA: High to Low.';
+  } else {
+    subtitle = `There are ${filterStudents.length} students filtered by ${value}.`;
+  }
+
   return (
     <div>
       <Filter handleFilter={handleFilterBy} courses={courses} />
-      <List students={filterStudents} />
+      <h6>{subtitle}</h6>
+      {windowWidth <= 1020 ? <ListMobile students={filterStudents} /> : <ListDesktop students={filterStudents} />}
     </div>
   );
 }

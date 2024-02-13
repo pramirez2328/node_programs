@@ -7,7 +7,8 @@ function App() {
   return (
     <div className='container'>
       <Nav />
-      <h2 className='text-center mt-4'>Boston University</h2>
+      <p className='text-center mt-4 mb-0 title'>Boston University</p>
+      <p className='text-center mb-4 mt-0 subtitle'>Students Records</p>
       <Students students={students} />
     </div>
   );

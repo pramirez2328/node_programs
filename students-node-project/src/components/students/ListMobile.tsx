@@ -8,15 +8,15 @@ interface Student {
   address: string;
 }
 
-function List({ students }: { students: Student[] }) {
+function ListMobile({ students }: { students: Student[] }) {
   return (
     <div className='col-12 d-flex flex-wrap'>
       {students.map((student: Student) => {
         return (
-          <div className='col-12 col-md-6 col-xl-4 col-xxl-3 p-2' key={student.id}>
+          <div className='col-12 col-md-4 col-xl-3  p-2' key={student.id}>
             <div className='card h-100'>
-              <h4 className='card-header fw-lighter'>{student.name}</h4>
-              <div className='card-body'>
+              <h4 className='card-header fw-bold text-muted'>{student.name}</h4>
+              <div className='card-body pb-0'>
                 <p className='card-text fw-bolder'>
                   Courses: {student.courses[0]}, {student.courses[1]}, {student.courses[2]}.
                 </p>
@@ -29,7 +29,9 @@ function List({ students }: { students: Student[] }) {
                     Email: {student.email}
                   </a>
                 </p>
-                <button className='btn btn-primary'>Update Student Profile</button>
+              </div>
+              <div className='p-2'>
+                <button className='btn btn-info w-100'>Edit Profile</button>
               </div>
             </div>
           </div>
@@ -39,4 +41,4 @@ function List({ students }: { students: Student[] }) {
   );
 }
 
-export default List;
+export default ListMobile;

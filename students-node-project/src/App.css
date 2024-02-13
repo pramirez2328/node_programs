@@ -1,5 +1,28 @@
 :root {
-  --font-size-sm: 0.875rem;
+  --font-size-filter: 0.875rem;
+  --font-size-card: 0.775rem;
+  --font-color: rgb(11, 4, 90);
+  --font-family: fantasy;
+}
+
+a.title-nav {
+  font-size: 1.2rem;
+  color: var(--font-color);
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 5px;
+  font-family: var(--font-family);
+}
+
+.title {
+  font-size: 2.5rem;
+  color: var(--font-color);
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  color: var(--font-color);
+  font-family: var(--font-family);
 }
 
 div.input-group {
@@ -8,5 +31,22 @@ div.input-group {
 
 .input-group label,
 .input-group select {
-  font-size: var(--font-size-sm);
+  font-size: var(--font-size-filter);
+}
+
+#table-desktop table {
+  border-collapse: separate;
+  border-color: var(--font-color);
+}
+
+tr th.text-header {
+  color: var(--font-color);
+}
+
+table .table-header {
+  background-color: rgb(166, 242, 249) !important;
+}
+
+.card-body p {
+  font-size: var(--font-size-card);
 }
