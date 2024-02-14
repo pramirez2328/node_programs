@@ -37,6 +37,10 @@ function Students({ students }: { students: Student[] }) {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  useEffect(() => {
+    setStudents(students);
+  }, [students]);
+
   const handleFilterBy = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const filterBy = e.target.value;
     setValue(filterBy);
