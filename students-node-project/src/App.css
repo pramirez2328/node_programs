@@ -35,7 +35,6 @@ div.input-group {
 }
 
 #table-desktop table {
-  border-collapse: separate;
   border-color: var(--font-color);
 }
 
@@ -48,5 +47,14 @@ table .table-header {
 }
 
 .card-body p {
+  font-size: var(--font-size-filter);
+}
+
+table tr td {
+  font-size: var(--font-size-filter);
+}
+
+#delete-button,
+#update-button {
   font-size: var(--font-size-card);
 }

@@ -35,6 +35,8 @@ function ListDesktop({ students }: { students: Student[] }) {
             <th className='text-header' scope='col'>
               Address
             </th>
+            <th className='text-header' scope='col'></th>
+            <th className='text-header' scope='col'></th>
           </tr>
         </thead>
         <tbody className='text-center'>
@@ -52,6 +54,16 @@ function ListDesktop({ students }: { students: Student[] }) {
                 </td>
                 <td>{student.phone}</td>
                 <td>{student.address}</td>
+                <td>
+                  <button className='btn btn-danger' id='delete-button'>
+                    delete
+                  </button>
+                </td>
+                <td>
+                  <button className='btn btn-success' id='update-button'>
+                    update
+                  </button>
+                </td>
               </tr>
             );
           })}

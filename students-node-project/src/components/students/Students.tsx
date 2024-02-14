@@ -26,10 +26,10 @@ const courses = [
   'Spanish',
 ];
 
-function Students({ students }: { students: Student[] }) {
+function Students({ students, value }: { students: Student[]; value: string }) {
   const [filterStudents, setStudents] = useState(students);
-  const [value, setValue] = useState('Choose...');
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [filterBy, setValue] = useState(value);
 
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
@@ -39,39 +39,40 @@ function Students({ students }: { students: Student[] }) {
 
   useEffect(() => {
     setStudents(students);
-  }, [students]);
+    setValue(value);
+  }, [students, value]);
 
   const handleFilterBy = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const filterBy = e.target.value;
-    setValue(filterBy);
-    if (filterBy === 'All Students') {
+    const filter = e.target.value;
+    setValue(filter);
+    if (filter === 'All Students') {
       setStudents([...students]);
-    } else if (filterBy === 'Name') {
+    } else if (filter === 'Name') {
       setStudents([...students].sort((a: Student, b: Student) => a.name.localeCompare(b.name)));
-    } else if (filterBy === 'GPA') {
+    } else if (filter === 'GPA') {
       setStudents([...students].sort((a: Student, b: Student) => b.gpa - a.gpa));
-    } else if (courses.includes(filterBy)) {
-      const filterByCourse: Student[] = students.filter((student: Student) => student.courses.includes(filterBy));
+    } else if (courses.includes(filter)) {
+      const filterByCourse: Student[] = students.filter((student: Student) => student.courses.includes(filter));
       setStudents(filterByCourse);
     }
   };
 
   let subtitle = '';
-  if (value === 'Choose...') {
+  if (filterBy === 'Choose...') {
     subtitle = '';
-  } else if (value === 'All Students.') {
+  } else if (filterBy === 'All Students') {
     subtitle = `There are ${students.length} students.`;
-  } else if (value === 'Name') {
+  } else if (filterBy === 'Name') {
     subtitle = 'Students sorted by name: A-Z.';
-  } else if (value === 'GPA') {
+  } else if (filterBy === 'GPA') {
     subtitle = 'Students sorted by GPA: High to Low.';
   } else {
-    subtitle = `There are ${filterStudents.length} students filtered by ${value}.`;
+    subtitle = `There are ${filterStudents.length} students filtered by ${filterBy}.`;
   }
 
   return (
     <div>
-      <Filter handleFilter={handleFilterBy} courses={courses} />
+      <Filter handleFilter={handleFilterBy} courses={courses} value={filterBy} />
       <h6>{subtitle}</h6>
       {windowWidth <= 1020 ? <ListMobile students={filterStudents} /> : <ListDesktop students={filterStudents} />}
     </div>
