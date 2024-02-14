@@ -1,11 +1,29 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Nav from './components/Nav';
 import Students from './components/students/Students';
-import students from './students';
+
 import './App.css';
 
 function App() {
-  const [search, setSearch] = useState(students);
+  const [search, setSearch] = useState([]);
+
+  const fetchStudents = async () => {
+    try {
+      const response = await fetch('http://localhost:8080/api/students');
+      if (!response.ok) {
+        throw new Error('Failed to fetch students');
+      }
+      const data = await response.json();
+      setSearch(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchStudents();
+  }, []);
+
   const handleSearch = (word: string) => {
     if (word.length === 0) return setSearch(students);
     if (word.length < 3) return;

@@ -1,8 +1,10 @@
 const express = require('express');
 const app = express();
 const Joi = require('joi');
-const port = process.env.Port || 8080;
+const cors = require('cors');
 const students = require('./students.js');
+
+app.use(cors());
 
 app.use(express.json());
 const schema = Joi.object({
@@ -51,6 +53,7 @@ app.post('/api/students', (req, res) => {
   res.send(student);
 });
 
+const port = process.env.Port || 8080;
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });
