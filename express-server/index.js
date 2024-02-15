@@ -17,21 +17,21 @@ const schema = Joi.object({
 });
 
 app.get('/', (req, res) => {
-  res.send('Hello World!!!!!');
+  res.send(JSON.stringify('Hello World!!!!!'));
 });
 
 app.get('/api/students', (req, res) => {
   res.send(students);
 });
 
-app.get('/api/students/:id', (req, res) => {
+app.delete('/api/students/:id', (req, res) => {
   const student = students.find((c) => c.id === parseInt(req.params.id));
   if (!student) return res.status(404).send('The student with the given ID was not found');
-  res.send(student);
-});
 
-app.use((req, res, next) => {
-  res.status(404).send('Bad network request. Please try again. ');
+  const index = students.indexOf(student);
+  students.splice(index, 1);
+
+  res.send(student);
 });
 
 app.post('/api/students', (req, res) => {
@@ -51,6 +51,10 @@ app.post('/api/students', (req, res) => {
   };
   students.push(student);
   res.send(student);
+});
+
+app.use((req, res, next) => {
+  res.status(404).send('Bad network request. Please try again. ');
 });
 
 const port = process.env.Port || 8080;

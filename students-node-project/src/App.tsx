@@ -38,6 +38,21 @@ function App() {
     fetchStudents();
   }, []);
 
+  const handleDeleteStudent = async (id: number) => {
+    try {
+      const response = await fetch(`http://localhost:8080/api/students/${id}`, {
+        method: 'DELETE',
+      });
+      if (!response.ok) {
+        throw new Error('Failed to delete student');
+      }
+      fetchStudents();
+      console.info('%c---Student was deleted from STUDENTS RECORDS!', 'color: green;');
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const handleSearch = (word: string) => {
     if (word.length === 0) {
       setStudents(allStudents);
@@ -69,7 +84,7 @@ function App() {
       <Nav handleSearch={handleSearch} />
       <p className='text-center mt-4 mb-0 title'>Boston University</p>
       <p className='text-center mb-4 mt-0 subtitle'>Students Records</p>
-      <Students students={students} value={value} />
+      <Students students={students} handleDelete={handleDeleteStudent} value={value} />
     </div>
   );
 }

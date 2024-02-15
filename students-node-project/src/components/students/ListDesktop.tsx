@@ -8,7 +8,7 @@ interface Student {
   address: string;
 }
 
-function ListDesktop({ students }: { students: Student[] }) {
+function ListDesktop({ students, handleDelete }: { students: Student[]; handleDelete: (id: number) => void }) {
   return (
     <div id='table-desktop'>
       <table className='table table-striped'>
@@ -55,7 +55,7 @@ function ListDesktop({ students }: { students: Student[] }) {
                 <td>{student.phone}</td>
                 <td>{student.address}</td>
                 <td>
-                  <button className='btn btn-danger' id='delete-button'>
+                  <button className='btn btn-danger' id='delete-button' onClick={() => handleDelete(student.id)}>
                     delete
                   </button>
                 </td>

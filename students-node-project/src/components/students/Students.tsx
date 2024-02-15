@@ -26,7 +26,15 @@ const courses = [
   'Spanish',
 ];
 
-function Students({ students, value }: { students: Student[]; value: string }) {
+function Students({
+  students,
+  value,
+  handleDelete,
+}: {
+  students: Student[];
+  value: string;
+  handleDelete: (id: number) => void;
+}) {
   const [filterStudents, setStudents] = useState(students);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [filterBy, setValue] = useState(value);
@@ -74,7 +82,11 @@ function Students({ students, value }: { students: Student[]; value: string }) {
     <div>
       <Filter handleFilter={handleFilterBy} courses={courses} value={filterBy} />
       <h6>{subtitle}</h6>
-      {windowWidth <= 1020 ? <ListMobile students={filterStudents} /> : <ListDesktop students={filterStudents} />}
+      {windowWidth <= 1020 ? (
+        <ListMobile students={filterStudents} />
+      ) : (
+        <ListDesktop students={filterStudents} handleDelete={handleDelete} />
+      )}
     </div>
   );
 }
