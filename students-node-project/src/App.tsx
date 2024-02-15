@@ -47,7 +47,7 @@ function App() {
         throw new Error('Failed to delete student');
       }
       fetchStudents();
-      console.info('%c---Student was deleted from STUDENTS RECORDS!', 'color: green;');
+      console.info('%c---Student was deleted from STUDENTS RECORDS!', 'color: red;');
     } catch (error) {
       console.error(error);
     }
