@@ -1,12 +1,4 @@
-interface Student {
-  id: number;
-  name: string;
-  courses: string[];
-  gpa: number;
-  email: string;
-  phone: string;
-  address: string;
-}
+import { Student } from './types';
 
 function ListDesktop({ students, handleDelete }: { students: Student[]; handleDelete: (id: number) => void }) {
   return (
@@ -42,8 +34,8 @@ function ListDesktop({ students, handleDelete }: { students: Student[]; handleDe
         <tbody className='text-center'>
           {students.map((student: Student) => {
             return (
-              <tr key={student.id}>
-                <th scope='row'>{student.id}</th>
+              <tr key={student._id}>
+                <th scope='row'>{student._id}</th>
                 <td>{student.name}</td>
                 <td>
                   {student.courses[0]}, {student.courses[1]}, {student.courses[2]}

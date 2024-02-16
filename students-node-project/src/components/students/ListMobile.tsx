@@ -1,12 +1,4 @@
-interface Student {
-  id: number;
-  name: string;
-  courses: string[];
-  gpa: number;
-  email: string;
-  phone: string;
-  address: string;
-}
+import { Student } from './types';
 
 function ListMobile({ students }: { students: Student[] }) {
   return (

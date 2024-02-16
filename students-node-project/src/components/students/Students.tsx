@@ -2,16 +2,7 @@ import { useState, useEffect } from 'react';
 import Filter from './Filter';
 import ListMobile from './ListMobile';
 import ListDesktop from './ListDesktop';
-
-interface Student {
-  id: number;
-  name: string;
-  courses: string[];
-  gpa: number;
-  email: string;
-  phone: string;
-  address: string;
-}
+import { Student } from './types';
 
 const courses = [
   'Math',

@@ -2,16 +2,7 @@ import { useState, useEffect } from 'react';
 import Nav from './components/Nav';
 import Students from './components/students/Students';
 import './App.css';
-
-interface Student {
-  id: number;
-  name: string;
-  courses: string[];
-  gpa: number;
-  email: string;
-  phone: string;
-  address: string;
-}
+import { Student } from './components/students/types';
 
 function App() {
   const [allStudents, setAllStudents] = useState<Student[]>([]);
@@ -20,7 +11,7 @@ function App() {
 
   const fetchStudents = async () => {
     try {
-      const response = await fetch('http://localhost:8080/api/students');
+      const response = await fetch('http://localhost:8080/students');
       if (!response.ok) {
         throw new Error('Failed to fetch students');
       }
