@@ -31,7 +31,7 @@ function App() {
 
   const handleDeleteStudent = async (id: number) => {
     try {
-      const response = await fetch(`http://localhost:8080/api/students/${id}`, {
+      const response = await fetch(`http://localhost:8080/students/${id}`, {
         method: 'DELETE',
       });
       if (!response.ok) {

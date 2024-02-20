@@ -35,7 +35,7 @@ function ListDesktop({ students, handleDelete }: { students: Student[]; handleDe
           {students.map((student: Student) => {
             return (
               <tr key={student._id}>
-                <th scope='row'>{student._id}</th>
+                <th scope='row'>{student._id && ('' + student?._id).slice(-7)}</th>
                 <td>{student.name}</td>
                 <td>
                   {student.courses[0]}, {student.courses[1]}, {student.courses[2]}
@@ -47,7 +47,7 @@ function ListDesktop({ students, handleDelete }: { students: Student[]; handleDe
                 <td>{student.phone}</td>
                 <td>{student.address}</td>
                 <td>
-                  <button className='btn btn-danger' id='delete-button' onClick={() => handleDelete(student.id)}>
+                  <button className='btn btn-danger' id='delete-button' onClick={() => handleDelete(student._id)}>
                     delete
                   </button>
                 </td>

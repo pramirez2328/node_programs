@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import Filter from './Filter';
+import AddStudent from './AddStudent';
 import ListMobile from './ListMobile';
 import ListDesktop from './ListDesktop';
 import { Student } from './types';
@@ -71,10 +72,17 @@ function Students({
 
   return (
     <div>
-      <Filter handleFilter={handleFilterBy} courses={courses} value={filterBy} />
-      <h6>{subtitle}</h6>
+      <div className='d-flex col-12 justify-content-between'>
+        <div>
+          <Filter handleFilter={handleFilterBy} courses={courses} value={filterBy} />
+          <h6>{subtitle}</h6>
+        </div>
+        <div>
+          <AddStudent />
+        </div>
+      </div>
       {windowWidth <= 1020 ? (
-        <ListMobile students={filterStudents} />
+        <ListMobile students={filterStudents} handleDelete={handleDelete} />
       ) : (
         <ListDesktop students={filterStudents} handleDelete={handleDelete} />
       )}

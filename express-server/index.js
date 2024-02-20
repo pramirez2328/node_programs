@@ -11,7 +11,7 @@ mongoose.connect('mongodb://localhost/students');
 
 const db = mongoose.connection;
 db.on('error', (error) => console.error(error));
-db.once('open', () => console.log('Connected to Database'));
+db.once('open', () => console.log('Connected to Database...'));
 app.use('/students', studentsRouter);
 
 app.use((req, res, next) => {

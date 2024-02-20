@@ -1,15 +1,15 @@
 import { Student } from './types';
 
-function ListMobile({ students }: { students: Student[] }) {
+function ListMobile({ students, handleDelete }: { students: Student[]; handleDelete: (id: number) => void }) {
   return (
     <div className='col-12 d-flex flex-wrap'>
       {students.map((student: Student) => {
         return (
-          <div className='col-12 col-md-4 col-xl-3  p-2' key={student.id}>
+          <div className='col-12 col-md-4 col-xl-3  p-2' key={student._id}>
             <div className='card h-100'>
               <h4 className='card-header fw-bold text-muted'>{student.name}</h4>
               <div className='card-body pb-0'>
-                <p className='card-text fw-bolder'>ID: {student.id}</p>
+                <p className='card-text fw-bolder'>ID: {student._id && ('' + student?._id).slice(-7)}</p>
                 <p className='card-text fw-bolder'>
                   Courses: {student.courses[0]}, {student.courses[1]}, {student.courses[2]}.
                 </p>
@@ -24,7 +24,7 @@ function ListMobile({ students }: { students: Student[] }) {
                 </p>
               </div>
               <div className='p-2'>
-                <button className='btn btn-danger col-12' id='delete-button'>
+                <button className='btn btn-danger col-12' id='delete-button' onClick={() => handleDelete(student._id)}>
                   delete
                 </button>
               </div>
