@@ -2,18 +2,18 @@
 const mongoose = require('mongoose');
 
 const studentSchema = new mongoose.Schema({
-  name: { type: String, required: true },
+  name: { type: String, required: true, minlength: 7, maxlength: 50 },
   courses: [{ type: String, required: true }],
-  gpa: { type: Number, required: true, min: 0, max: 4 },
+  gpa: { type: Number, required: true, min: 2, max: 4 },
   email: {
     type: String,
     required: true,
     unique: true,
     lowercase: true,
     trim: true,
-    validator: {
+    validate: {
       validator: function (v) {
-        return /\S+@\S+\.\S+/.test(v);
+        return /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/.test(v);
       },
       message: (props) => `${props.value} is not a valid email address!`,
     },

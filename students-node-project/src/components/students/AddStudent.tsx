@@ -23,10 +23,15 @@ function AddStudent({ fetchStudents }: { fetchStudents: () => void }) {
   const handleClose = () => setShow(false);
 
   const handleSaved = async () => {
+    if (student.phone[0] === '1') {
+      student.phone = student.phone.slice(1);
+    }
+    console.log('student.phone:', student.phone);
+
     const newPhone = student.phone.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3');
     const newStudent = {
       name: `${student.name} ${student.lastName}`,
-      courses: student.courses,
+      courses: [...new Set(student.courses)],
       gpa: student.gpa,
       email: student.email,
       phone: newPhone,
