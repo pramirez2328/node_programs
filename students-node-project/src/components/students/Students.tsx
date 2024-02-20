@@ -62,12 +62,12 @@ function Students({
 
   return (
     <div>
-      <div className='d-flex col-12 justify-content-between'>
+      <div className='d-flex flex-wrap col-12 justify-content-between p-2'>
         <div>
           <Filter handleFilter={handleFilterBy} courses={courses} value={filterBy} />
           <h6>{subtitle}</h6>
         </div>
-        <div>
+        <div className='col-12 col-sm-6 col-md-3'>
           <AddStudent fetchStudents={fetchStudents} />
         </div>
       </div>

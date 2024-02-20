@@ -37,9 +37,7 @@ function ListDesktop({ students, handleDelete }: { students: Student[]; handleDe
               <tr key={student._id}>
                 <th scope='row'>{student._id && ('' + student?._id).slice(-7)}</th>
                 <td>{student.name}</td>
-                <td>
-                  {student.courses[0]}, {student.courses[1]}, {student.courses[2]}
-                </td>
+                <td>{student.courses.join(', ')}</td>
                 <td>{student.gpa}</td>
                 <td>
                   <a href={student.email}>{student.email}</a>

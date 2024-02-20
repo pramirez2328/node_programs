@@ -20,7 +20,9 @@ function AddStudent({ fetchStudents }: { fetchStudents: () => void }) {
   });
 
   const handleShow = () => setShow(true);
-  const handleClose = async () => {
+  const handleClose = () => setShow(false);
+
+  const handleSaved = async () => {
     const newPhone = student.phone.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3');
     const newStudent = {
       name: `${student.name} ${student.lastName}`,
@@ -66,7 +68,7 @@ function AddStudent({ fetchStudents }: { fetchStudents: () => void }) {
 
   return (
     <>
-      <Button variant='primary' onClick={handleShow}>
+      <Button className='w-100' variant='primary' onClick={handleShow}>
         Add Student
       </Button>
 
@@ -76,33 +78,33 @@ function AddStudent({ fetchStudents }: { fetchStudents: () => void }) {
         </Modal.Header>
         <Modal.Body>
           <Form>
-            <div>
-              <Form.Label htmlFor='inputName'>Name</Form.Label>
+            <div className='form-title'>
+              <Form.Label htmlFor='inputName'>Name:</Form.Label>
               <Form.Control
                 type='text'
                 id='inputName'
                 aria-describedby='studentName'
                 onChange={(e) => setStudent({ ...student, name: e.target.value })}
               />
-              <Form.Text id='studentName' muted>
+              <Form.Text id='studentName' className='form-subtitles'>
                 Your name must be at least 3 characters long.
               </Form.Text>
             </div>
-            <div>
-              <Form.Label htmlFor='inputLastName'>Last Name</Form.Label>
+            <div className='form-title'>
+              <Form.Label htmlFor='inputLastName'>Last Name:</Form.Label>
               <Form.Control
                 type='text'
                 id='inputLastName'
                 aria-describedby='studentLastName'
                 onChange={(e) => setStudent({ ...student, lastName: e.target.value })}
               />
-              <Form.Text id='studentLastName' muted>
+              <Form.Text id='studentLastName' className='form-subtitles'>
                 Your last name must be at least 3 characters long.
               </Form.Text>
             </div>
-            <div className='d-flex'>
-              <div>
-                <Form.Label htmlFor='inputGPA'>GPA</Form.Label>
+            <div className='d-flex justify-content-between col-12'>
+              <div className='form-title col-6 pe-1'>
+                <Form.Label htmlFor='inputGPA'>GPA:</Form.Label>
                 <Form.Control
                   type='number'
                   id='inputGPA'
@@ -112,17 +114,22 @@ function AddStudent({ fetchStudents }: { fetchStudents: () => void }) {
                   step={0.1}
                   onChange={(e) => setStudent({ ...student, gpa: e.target.value })}
                 />
-                <Form.Text id='studentGPA' muted>
+                <Form.Text id='studentGPA' className='form-subtitles'>
                   Your GPA must be between 2.0 and 4.0.
                 </Form.Text>
               </div>
-              <div>
+              <div className='form-title col-6 ps-1'>
                 <Form.Label htmlFor='inputCourses'>Courses</Form.Label>
                 <Form.Control
                   as='select'
                   id='inputCourses'
                   aria-describedby='studentCourses'
-                  onChange={(e) => setStudent({ ...student, courses: [...student.courses, e.target.value] })}
+                  onChange={(e) =>
+                    setStudent({
+                      ...student,
+                      courses: e.target.value !== '' ? [...student.courses, e.target.value] : [...student.courses],
+                    })
+                  }
                 >
                   <option value=''>Select course...</option>
                   {courses.map((course, index) => (
@@ -131,62 +138,70 @@ function AddStudent({ fetchStudents }: { fetchStudents: () => void }) {
                     </option>
                   ))}
                 </Form.Control>
+                <Form.Text
+                  id='studentCourses'
+                  className={`form-subtitles ${student.courses.length > 0 && 'added-course'}`}
+                >
+                  {student.courses.length > 0
+                    ? `You have selected ${student.courses.length} course${student.courses.length === 1 ? '.' : 's.'}`
+                    : 'You can select more than one course.'}
+                </Form.Text>
               </div>
             </div>
-            <div>
-              <Form.Label htmlFor='inputEmail'>Email</Form.Label>
+            <div className='form-title'>
+              <Form.Label htmlFor='inputEmail'>Email:</Form.Label>
               <Form.Control
                 type='email'
                 id='inputEmail'
                 aria-describedby='studentEmail'
                 onChange={(e) => setStudent({ ...student, email: e.target.value })}
               />
-              <Form.Text id='studentEmail' muted>
+              <Form.Text id='studentEmail' className='form-subtitles'>
                 Your email must be a valid email address.
               </Form.Text>
             </div>
 
-            <div className='d-flex'>
-              <div>
-                <Form.Label htmlFor='inputAddress'>Address</Form.Label>
+            <div className='d-flex justify-content-between col-12'>
+              <div className='form-title col-6 pe-1'>
+                <Form.Label htmlFor='inputAddress'>Address:</Form.Label>
                 <Form.Control
                   type='text'
                   id='inputAddress'
                   aria-describedby='studentAddress'
                   onChange={(e) => setStudent({ ...student, address: e.target.value })}
                 />
-                <Form.Text id='studentAddress' muted>
-                  Your address must be at least 5 characters long.
+                <Form.Text id='studentAddress' className='form-subtitles'>
+                  It must be at least 5 characters long.
                 </Form.Text>
               </div>
-              <div>
-                <Form.Label htmlFor='inputCity'>City</Form.Label>
+              <div className='form-title col-6 ps-1'>
+                <Form.Label htmlFor='inputCity'>City:</Form.Label>
                 <Form.Control
                   type='text'
                   id='inputCity'
                   aria-describedby='studentCity'
                   onChange={(e) => setStudent({ ...student, city: e.target.value })}
                 />
-                <Form.Text id='studentCity' muted>
-                  Your city must be at least 3 characters long.
+                <Form.Text id='studentCity' className='form-subtitles'>
+                  It must be at least 3 characters long.
                 </Form.Text>
               </div>
             </div>
-            <div className='d-flex'>
-              <div>
-                <Form.Label htmlFor='inputPhone'>Phone</Form.Label>
+            <div className='d-flex justify-content-between col-12'>
+              <div className='form-title col-6 pe-1'>
+                <Form.Label htmlFor='inputPhone'>Phone:</Form.Label>
                 <Form.Control
                   type='tel'
                   id='inputPhone'
                   aria-describedby='studentPhone'
                   onChange={(e) => setStudent({ ...student, phone: e.target.value })}
                 />
-                <Form.Text id='studentPhone' muted>
-                  Your phone number must be a valid phone number.
+                <Form.Text id='studentPhone' className='form-subtitles'>
+                  valid format: 123-456-7890
                 </Form.Text>
               </div>
 
-              <div>
+              <div className='form-title col-6 ps-1'>
                 <Form.Label htmlFor='inputStates'>State</Form.Label>
                 <Form.Control
                   as='select'
@@ -209,7 +224,7 @@ function AddStudent({ fetchStudents }: { fetchStudents: () => void }) {
           <Button variant='secondary' onClick={handleClose}>
             Close
           </Button>
-          <Button variant='primary' onClick={handleClose}>
+          <Button variant='primary' onClick={handleSaved}>
             Save Changes
           </Button>
         </Modal.Footer>
