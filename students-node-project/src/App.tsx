@@ -35,10 +35,11 @@ function App() {
         method: 'DELETE',
       });
       if (!response.ok) {
+        response.json().then((data) => alert(data.message));
         throw new Error('Failed to delete student');
       }
       fetchStudents();
-      console.info('%c---Student was deleted from STUDENTS RECORDS!', 'color: red;');
+      console.info('%c---A student was deleted from STUDENTS RECORDS!', 'color: red;');
     } catch (error) {
       console.error(error);
     }
@@ -75,7 +76,7 @@ function App() {
       <Nav handleSearch={handleSearch} />
       <p className='text-center mt-4 mb-0 title'>Boston University</p>
       <p className='text-center mb-4 mt-0 subtitle'>Students Records</p>
-      <Students students={students} handleDelete={handleDeleteStudent} value={value} />
+      <Students students={students} handleDelete={handleDeleteStudent} value={value} fetchStudents={fetchStudents} />
     </div>
   );
 }

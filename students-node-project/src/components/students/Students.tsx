@@ -4,28 +4,18 @@ import AddStudent from './AddStudent';
 import ListMobile from './ListMobile';
 import ListDesktop from './ListDesktop';
 import { Student } from './types';
-
-const courses = [
-  'Math',
-  'History',
-  'English',
-  'Art',
-  'Computer Science',
-  'Physics',
-  'Chemistry',
-  'Biology',
-  'Geography',
-  'Spanish',
-];
+import { courses } from '../../../util';
 
 function Students({
   students,
   value,
   handleDelete,
+  fetchStudents,
 }: {
   students: Student[];
   value: string;
   handleDelete: (id: number) => void;
+  fetchStudents: () => void;
 }) {
   const [filterStudents, setStudents] = useState(students);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -78,7 +68,7 @@ function Students({
           <h6>{subtitle}</h6>
         </div>
         <div>
-          <AddStudent />
+          <AddStudent fetchStudents={fetchStudents} />
         </div>
       </div>
       {windowWidth <= 1020 ? (

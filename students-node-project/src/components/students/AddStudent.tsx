@@ -5,7 +5,7 @@ import Form from 'react-bootstrap/Form';
 import { states } from '../../../util';
 import { courses } from '../../../util';
 
-function AddStudent() {
+function AddStudent({ fetchStudents }: { fetchStudents: () => void }) {
   const [show, setShow] = useState(false);
   const [student, setStudent] = useState({
     name: '',
@@ -20,7 +20,7 @@ function AddStudent() {
   });
 
   const handleShow = () => setShow(true);
-  const handleClose = () => {
+  const handleClose = async () => {
     const newPhone = student.phone.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3');
     const newStudent = {
       name: `${student.name} ${student.lastName}`,
@@ -32,13 +32,19 @@ function AddStudent() {
     };
 
     try {
-      fetch('http://localhost:3001/students', {
+      const response = await fetch('http://localhost:8080/students', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(newStudent),
       });
+      if (response.status !== 201) {
+        response.json().then((data) => alert(data.message));
+        throw new Error('Failed to add student');
+      }
+      fetchStudents();
+      console.log('%c---A student was added to STUDENTS RECORDS!', 'color: pink;');
     } catch (error) {
       console.error('Error:', error);
     }

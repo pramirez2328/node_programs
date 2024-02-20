@@ -53,13 +53,13 @@ export const states = [
 
 export const courses = [
   'Math',
-  'Science',
-  'English',
   'History',
+  'English',
   'Art',
-  'Physical Education',
-  'Music',
   'Computer Science',
-  'Foreign Language',
+  'Physics',
+  'Chemistry',
+  'Biology',
+  'Geography',
   'Spanish',
 ];
