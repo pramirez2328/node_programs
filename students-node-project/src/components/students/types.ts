@@ -1,8 +1,7 @@
 export interface Student {
-  _id: number;
   name: string;
   courses: string[];
-  gpa: number;
+  gpa: string;
   email: string;
   phone: string;
   address: string;

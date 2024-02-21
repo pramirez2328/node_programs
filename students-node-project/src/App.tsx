@@ -2,47 +2,53 @@ import { useState, useEffect } from 'react';
 import Nav from './components/Nav';
 import Students from './components/students/Students';
 import './App.css';
-import { Student } from './components/students/types';
+import { fetchStudents, deleteStudent } from './http';
+import { addStudent } from './http';
+
+interface Student {
+  _id: number;
+  name: string;
+  courses: string[];
+  gpa: string;
+  email: string;
+  phone: string;
+  address: string;
+}
+
+interface AddStudent {
+  name: string;
+  courses: string[];
+  gpa: string;
+  email: string;
+  phone: string;
+  address: string;
+}
 
 function App() {
   const [allStudents, setAllStudents] = useState<Student[]>([]);
   const [students, setStudents] = useState<Student[]>([]);
   const [value, setValue] = useState('Choose...');
 
-  const fetchStudents = async () => {
-    try {
-      const response = await fetch('http://localhost:8080/students');
-      if (!response.ok) {
-        throw new Error('Failed to fetch students');
-      }
-      const data = await response.json();
-      setAllStudents(data);
-      setStudents(data);
-      console.info('%c---Students were fetched from STUDENTS RECORDS!', 'color: green;');
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   useEffect(() => {
     setValue('Choose...');
-    fetchStudents();
+    const getStudents = async () => {
+      const students = await fetchStudents();
+      setStudents(students);
+      setAllStudents(students);
+    };
+    getStudents();
   }, []);
 
-  const handleDeleteStudent = async (id: number) => {
-    try {
-      const response = await fetch(`http://localhost:8080/students/${id}`, {
-        method: 'DELETE',
-      });
-      if (!response.ok) {
-        response.json().then((data) => alert(data.message));
-        throw new Error('Failed to delete student');
-      }
-      fetchStudents();
-      console.info('%c---A student was deleted from STUDENTS RECORDS!', 'color: red;');
-    } catch (error) {
-      console.error(error);
-    }
+  const handleDeleteStudent = (id: number) => {
+    deleteStudent(id);
+    setStudents(students.filter((student) => student._id !== id));
+    setAllStudents(allStudents.filter((student) => student._id !== id));
+  };
+
+  const handleAddStudent = async (student: AddStudent) => {
+    const newStudent = await addStudent(student);
+    setStudents([...students, newStudent]);
+    setAllStudents([...allStudents, newStudent]);
   };
 
   const handleSearch = (word: string) => {
@@ -76,7 +82,12 @@ function App() {
       <Nav handleSearch={handleSearch} />
       <p className='text-center mt-4 mb-0 title'>Boston University</p>
       <p className='text-center mb-4 mt-0 subtitle'>Students Records</p>
-      <Students students={students} handleDelete={handleDeleteStudent} value={value} fetchStudents={fetchStudents} />
+      <Students
+        students={students}
+        handleDelete={handleDeleteStudent}
+        value={value}
+        handleAddStudent={handleAddStudent}
+      />
     </div>
   );
 }

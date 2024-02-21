@@ -2,10 +2,10 @@ import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
-import { states } from '../../../util';
-import { courses } from '../../../util';
+import { states, courses } from '../../util';
+import { Student } from '../students/types';
 
-function AddStudent({ fetchStudents }: { fetchStudents: () => void }) {
+function AddStudent({ addStudent }: { addStudent: (student: Student) => void }) {
   const [show, setShow] = useState(false);
   const [student, setStudent] = useState({
     name: '',
@@ -22,11 +22,10 @@ function AddStudent({ fetchStudents }: { fetchStudents: () => void }) {
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
 
-  const handleSaved = async () => {
+  const handleSaved = () => {
     if (student.phone[0] === '1') {
       student.phone = student.phone.slice(1);
     }
-    console.log('student.phone:', student.phone);
 
     const newPhone = student.phone.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3');
     const newStudent = {
@@ -38,23 +37,7 @@ function AddStudent({ fetchStudents }: { fetchStudents: () => void }) {
       address: `${student.address}, ${student.city}, ${student.state}, USA`,
     };
 
-    try {
-      const response = await fetch('http://localhost:8080/students', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(newStudent),
-      });
-      if (response.status !== 201) {
-        response.json().then((data) => alert(data.message));
-        throw new Error('Failed to add student');
-      }
-      fetchStudents();
-      console.log('%c---A student was added to STUDENTS RECORDS!', 'color: pink;');
-    } catch (error) {
-      console.error('Error:', error);
-    }
+    addStudent(newStudent);
 
     setStudent({
       name: '',

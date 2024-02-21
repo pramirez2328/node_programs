@@ -1,9 +1,25 @@
-import { Student } from './types';
+interface Student {
+  _id: number;
+  name: string;
+  courses: string[];
+  gpa: string;
+  email: string;
+  phone: string;
+  address: string;
+}
 
-function ListDesktop({ students, handleDelete }: { students: Student[]; handleDelete: (id: number) => void }) {
+function List({
+  students,
+  handleDelete,
+  handleUpdate,
+}: {
+  students: Student[];
+  handleDelete: (id: number) => void;
+  handleUpdate: (student: Student) => void;
+}) {
   return (
-    <div id='table-desktop'>
-      <table className='table table-striped'>
+    <div id='table-desktop' className='table-responsive'>
+      <table className='table table-striped '>
         <thead className='table-header'>
           <tr className='text-center'>
             <th className='text-header' scope='col'>
@@ -50,7 +66,7 @@ function ListDesktop({ students, handleDelete }: { students: Student[]; handleDe
                   </button>
                 </td>
                 <td>
-                  <button className='btn btn-success' id='update-button'>
+                  <button className='btn btn-success' id='update-button' onClick={() => handleUpdate(student)}>
                     update
                   </button>
                 </td>
@@ -63,4 +79,4 @@ function ListDesktop({ students, handleDelete }: { students: Student[]; handleDe
   );
 }
 
-export default ListDesktop;
+export default List;

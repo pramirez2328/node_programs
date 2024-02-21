@@ -1,46 +1,80 @@
 import { useState, useEffect } from 'react';
 import Filter from './Filter';
 import AddStudent from './AddStudent';
-import ListMobile from './ListMobile';
-import ListDesktop from './ListDesktop';
-import { Student } from './types';
-import { courses } from '../../../util';
+import List from './List';
+import { courses } from '../../util';
+
+interface Student {
+  _id: number;
+  name: string;
+  courses: string[];
+  gpa: string;
+  email: string;
+  phone: string;
+  address: string;
+}
+
+interface AddStudent {
+  name: string;
+  courses: string[];
+  gpa: string;
+  email: string;
+  phone: string;
+  address: string;
+}
 
 function Students({
   students,
   value,
   handleDelete,
-  fetchStudents,
+  handleAddStudent,
 }: {
   students: Student[];
   value: string;
   handleDelete: (id: number) => void;
-  fetchStudents: () => void;
+  handleAddStudent: (student: AddStudent) => void;
 }) {
   const [filterStudents, setStudents] = useState(students);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [filterBy, setValue] = useState(value);
+  const [alert, setAlert] = useState(false);
 
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
     window.addEventListener('resize', handleResize);
+    if (windowWidth < 824) {
+      setAlert(true);
+    }
     return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  }, [windowWidth]);
+
+  useEffect(() => {
+    if (alert) {
+      const timer = setTimeout(() => {
+        setAlert(false);
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [alert]);
 
   useEffect(() => {
     setStudents(students);
     setValue(value);
   }, [students, value]);
 
+  const handleUpdate = (student: Student) => {
+    console.log('student:', student);
+  };
+
   const handleFilterBy = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const filter = e.target.value;
     setValue(filter);
-    if (filter === 'All Students') {
+    if (filter === 'All Students' || filter === 'Choose...') {
       setStudents([...students]);
     } else if (filter === 'Name') {
       setStudents([...students].sort((a: Student, b: Student) => a.name.localeCompare(b.name)));
     } else if (filter === 'GPA') {
-      setStudents([...students].sort((a: Student, b: Student) => b.gpa - a.gpa));
+      setStudents([...students].sort((a: Student, b: Student) => +b.gpa - +a.gpa));
     } else if (courses.includes(filter)) {
       const filterByCourse: Student[] = students.filter((student: Student) => student.courses.includes(filter));
       setStudents(filterByCourse);
@@ -68,14 +102,17 @@ function Students({
           <h6>{subtitle}</h6>
         </div>
         <div className='col-12 col-sm-6 col-md-3'>
-          <AddStudent fetchStudents={fetchStudents} />
+          <AddStudent addStudent={handleAddStudent} />
         </div>
       </div>
-      {windowWidth <= 1020 ? (
-        <ListMobile students={filterStudents} handleDelete={handleDelete} />
-      ) : (
-        <ListDesktop students={filterStudents} handleDelete={handleDelete} />
+
+      {alert && (
+        <div className='alert alert-warning alert-dismissible fade show' role='alert'>
+          rotate your device to view the full table or ...<strong>Scroll&#8594;</strong>
+          <button type='button' className='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+        </div>
       )}
+      <List students={filterStudents} handleDelete={handleDelete} handleUpdate={handleUpdate} />
     </div>
   );
 }
