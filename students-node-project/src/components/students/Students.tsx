@@ -28,11 +28,13 @@ function Students({
   value,
   handleDelete,
   handleAddStudent,
+  handleUpdate,
 }: {
   students: Student[];
   value: string;
   handleDelete: (id: number) => void;
   handleAddStudent: (student: AddStudent) => void;
+  handleUpdate: (student: Student) => void;
 }) {
   const [filterStudents, setStudents] = useState(students);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -61,10 +63,6 @@ function Students({
     setStudents(students);
     setValue(value);
   }, [students, value]);
-
-  const handleUpdate = (student: Student) => {
-    console.log('student:', student);
-  };
 
   const handleFilterBy = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const filter = e.target.value;

@@ -51,6 +51,10 @@ function App() {
     setAllStudents([...allStudents, newStudent]);
   };
 
+  const handleUpdate = (student: Student) => {
+    console.log('student:', student);
+  };
+
   const handleSearch = (word: string) => {
     if (word.length === 0) {
       setStudents(allStudents);
@@ -87,6 +91,7 @@ function App() {
         handleDelete={handleDeleteStudent}
         value={value}
         handleAddStudent={handleAddStudent}
+        handleUpdate={handleUpdate}
       />
     </div>
   );
