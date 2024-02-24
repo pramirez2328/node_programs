@@ -1,4 +1,21 @@
-import { Student } from './components/students/types';
+interface Student {
+  _id: number;
+  name: string;
+  courses: string[];
+  gpa: string;
+  email: string;
+  phone: string;
+  address: string;
+}
+
+interface AddStudent {
+  name: string;
+  courses: string[];
+  gpa: string;
+  email: string;
+  phone: string;
+  address: string;
+}
 
 export const fetchStudents = async () => {
   try {
@@ -29,7 +46,7 @@ export const deleteStudent = async (id: number) => {
   }
 };
 
-export const addStudent = async (student: Student) => {
+export const addStudent = async (student: AddStudent) => {
   try {
     const response = await fetch('http://localhost:8080/students', {
       method: 'POST',
@@ -43,6 +60,26 @@ export const addStudent = async (student: Student) => {
       throw new Error('Failed to add student');
     }
     console.log('%c---A student was added to STUDENTS RECORDS!', 'color: pink;');
+    return response.json();
+  } catch (error) {
+    console.error('Error:', error);
+  }
+};
+
+export const updateStudent = async (student: Student) => {
+  try {
+    const response = await fetch(`http://localhost:8080/students/${student._id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(student),
+    });
+    if (!response.ok) {
+      response.json().then((data) => alert(data.message));
+      throw new Error('Failed to update student');
+    }
+    console.log('%c---A student was updated in STUDENTS RECORDS!', 'color: violet;');
     return response.json();
   } catch (error) {
     console.error('Error:', error);

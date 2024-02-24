@@ -47,12 +47,18 @@ function App() {
 
   const handleAddStudent = async (student: AddStudent) => {
     const newStudent = await addStudent(student);
-    setStudents([...students, newStudent]);
-    setAllStudents([...allStudents, newStudent]);
+    if (!newStudent) {
+      alert('Failed to add student');
+      return;
+    } else {
+      setStudents([...students, newStudent]);
+      setAllStudents([...allStudents, newStudent]);
+    }
   };
 
-  const handleUpdate = (student: Student) => {
-    console.log('student:', student);
+  const handleUpdateStudent = (student: Student) => {
+    setStudents(students.map((s) => (s._id === student._id ? student : s)));
+    setAllStudents(allStudents.map((s) => (s._id === student._id ? student : s)));
   };
 
   const handleSearch = (word: string) => {
@@ -91,7 +97,7 @@ function App() {
         handleDelete={handleDeleteStudent}
         value={value}
         handleAddStudent={handleAddStudent}
-        handleUpdate={handleUpdate}
+        handleUpdateStudent={handleUpdateStudent}
       />
     </div>
   );
