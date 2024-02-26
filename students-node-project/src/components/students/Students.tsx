@@ -1,27 +1,9 @@
 import { useState, useEffect } from 'react';
 import Filter from './Filter';
-import AddStudent from './AddStudent';
 import List from './List';
+import AddNewStudent from './AddNewStudent';
 import { courses } from '../../util';
-
-interface Student {
-  _id: number;
-  name: string;
-  courses: string[];
-  gpa: string;
-  email: string;
-  phone: string;
-  address: string;
-}
-
-interface AddStudent {
-  name: string;
-  courses: string[];
-  gpa: string;
-  email: string;
-  phone: string;
-  address: string;
-}
+import { Student, AddStudent } from './types';
 
 function Students({
   students,
@@ -100,7 +82,7 @@ function Students({
           <h6>{subtitle}</h6>
         </div>
         <div className='col-12 col-sm-6 col-md-3'>
-          <AddStudent addStudent={handleAddStudent} />
+          <AddNewStudent addStudent={handleAddStudent} />
         </div>
       </div>
 

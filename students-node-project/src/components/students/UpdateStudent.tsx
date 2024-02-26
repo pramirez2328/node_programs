@@ -4,39 +4,17 @@ import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import { states, courses } from '../../util';
 import { updateStudent } from '../../http';
-
-interface StudentProps {
-  _id: number;
-  name: string;
-  courses: string[];
-  gpa: string;
-  email: string;
-  phone: string;
-  address: string;
-}
-
-interface Student {
-  _id: number;
-  name: string;
-  lastName: string;
-  gpa: string;
-  email: string;
-  phone: string;
-  address: string;
-  city: string;
-  state: string;
-  courses: string[];
-}
+import { Student, StudentInputs } from './types';
 
 function UpdateStudent({
   currentStudent,
   handleUpdateStudent,
 }: {
-  currentStudent: StudentProps;
-  handleUpdateStudent: (student: StudentProps) => void;
+  currentStudent: Student;
+  handleUpdateStudent: (student: Student) => void;
 }) {
   const [show, setShow] = useState(false);
-  const [student, setStudent] = useState<Student>({
+  const [student, setStudent] = useState<StudentInputs>({
     ...currentStudent,
     courses: currentStudent?.courses,
     name: currentStudent?.name?.split(' ')[0],
@@ -49,14 +27,14 @@ function UpdateStudent({
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
 
-  const handleUpdate = (studentObj: Student) => {
+  const handleUpdate = (studentObj: StudentInputs) => {
     if (studentObj.phone[0] === '1') {
       studentObj.phone = studentObj.phone.slice(1);
     }
 
     const newPhone = studentObj.phone.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3');
 
-    const newStudent = {
+    const newStudent: Student = {
       _id: studentObj._id,
       name: `${studentObj?.name} ${studentObj?.lastName}`,
       courses: [...new Set(student.courses)] as string[],

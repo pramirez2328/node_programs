@@ -3,17 +3,9 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import { states, courses } from '../../util';
+import { AddStudent } from './types';
 
-interface newStudent {
-  name: string;
-  gpa: string;
-  email: string;
-  phone: string;
-  address: string;
-  courses: string[];
-}
-
-function AddStudent({ addStudent }: { addStudent: (student: newStudent) => void }) {
+function AddNewStudent({ addStudent }: { addStudent: (student: AddStudent) => void }) {
   const [show, setShow] = useState(false);
   const [student, setStudent] = useState({
     name: '',
@@ -49,7 +41,7 @@ function AddStudent({ addStudent }: { addStudent: (student: newStudent) => void 
       }
 
       const newPhone = student.phone.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3');
-      const newStudent: newStudent = {
+      const newStudent: AddStudent = {
         name: `${student.name} ${student.lastName}`,
         courses: [...new Set(student.courses)],
         gpa: student.gpa,
@@ -249,4 +241,4 @@ function AddStudent({ addStudent }: { addStudent: (student: newStudent) => void 
   );
 }
 
-export default AddStudent;
+export default AddNewStudent;

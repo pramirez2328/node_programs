@@ -1,14 +1,5 @@
 import UpdateStudent from './UpdateStudent';
-
-interface Student {
-  _id: number;
-  name: string;
-  courses: string[];
-  gpa: string;
-  email: string;
-  phone: string;
-  address: string;
-}
+import { Student } from './types';
 
 function List({
   students,
