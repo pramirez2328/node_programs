@@ -2,12 +2,17 @@ import { AddStudent, Student } from '../src/components/students/types';
 
 export const fetchStudents = async () => {
   try {
-    const response = await fetch(`${import.meta.env.VITE_APP_API_URL}/students`);
-    if (!response.ok) {
+    const response = await fetch(`${import.meta.env.VITE_APP_API_URL}/api/students`);
+    console.log('Response:', response);
+    if (!response.ok || !response.headers.get('Content-Type')?.includes('application/json')) {
+      // Print out the response text when an error occurs
+      const text = await response.text();
+      console.log('Response text:', text);
       throw new Error('Failed to fetch students');
+    } else {
+      console.info('%c---Students were fetched from STUDENTS RECORDS!', 'color: green;');
+      return await response.json();
     }
-    console.info('%c---Students were fetched from STUDENTS RECORDS!', 'color: green;');
-    return await response.json();
   } catch (error) {
     console.error('Error: unable to fetch students', error);
     return error;
@@ -16,7 +21,7 @@ export const fetchStudents = async () => {
 
 export const deleteStudent = async (id: number) => {
   try {
-    const response = await fetch(`${import.meta.env.VITE_APP_API_URL}/students/${id}`, {
+    const response = await fetch(`${import.meta.env.VITE_APP_API_URL}/api/students/${id}`, {
       method: 'DELETE',
     });
     if (!response.ok) {
@@ -32,7 +37,7 @@ export const deleteStudent = async (id: number) => {
 
 export const addStudent = async (student: AddStudent) => {
   try {
-    const response = await fetch(`${import.meta.env.VITE_APP_API_URL}/students`, {
+    const response = await fetch(`${import.meta.env.VITE_APP_API_URL}/api/students`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -52,7 +57,7 @@ export const addStudent = async (student: AddStudent) => {
 
 export const updateStudent = async (student: Student) => {
   try {
-    const response = await fetch(`${import.meta.env.VITE_APP_API_URL}/students/${student._id}`, {
+    const response = await fetch(`${import.meta.env.VITE_APP_API_URL}/api/students/${student._id}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',

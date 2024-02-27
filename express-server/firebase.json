@@ -1,0 +1,17 @@
+{
+  "hosting": {
+    "rewrites": [
+      {
+        "source": "**",
+        "function": "students-server"
+      }
+    ]
+  },
+  "functions": [
+    {
+      "source": "students-server",
+      "codebase": "students-server",
+      "ignore": ["node_modules", ".git", "firebase-debug.log", "firebase-debug.*.log"]
+    }
+  ]
+}
