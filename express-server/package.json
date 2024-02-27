@@ -1,11 +1,11 @@
 {
   "name": "express-server",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "express server with nodemon",
-  "main": "index.js",
+  "main": "functions/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js"
+    "start": "nodemon functions/index.js"
   },
   "keywords": [],
   "author": "",
