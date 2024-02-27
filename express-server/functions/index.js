@@ -1,6 +1,6 @@
 const functions = require('firebase-functions');
 const express = require('express');
-const { run } = require('../db');
+const { run } = require('../db.js');
 const studentsRouter = require('../routes/students');
 const cors = require('cors');
 
@@ -14,7 +14,7 @@ app.use(express.json());
 // Connect to MongoDB
 run()
   .then(() => {
-    console.log('Connected to Database...');
+    console.log('Connected to Database!...');
   })
   .catch((error) => {
     console.error('Error connecting to database:', error);
