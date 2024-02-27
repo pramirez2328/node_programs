@@ -1,4 +1,4 @@
-const { run } = require('./db.js');
+const { run } = require('./db');
 const express = require('express');
 const mongoose = require('mongoose');
 const studentsRouter = require('./routes/students');
