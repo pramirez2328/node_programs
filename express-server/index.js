@@ -1,8 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const studentsRouter = require('./routes/students');
 const cors = require('cors');
-const { run } = require('./db.js');
+import studentsRouter from './routes/students';
+import { run } from './db.js';
 
 async function startApp() {
   try {
