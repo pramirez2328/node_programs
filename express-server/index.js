@@ -36,4 +36,11 @@ app.options('*', cors());
   }
 }
 
+
 startApp();
+
+const PORT = process.env.Port || 8080;
+app.listen(PORT, () => {
+  console.log(`Example app listening at http://localhost:${PORT}`);
+});
+
