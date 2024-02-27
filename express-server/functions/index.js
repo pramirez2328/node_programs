@@ -1,6 +1,6 @@
 const functions = require('firebase-functions');
 const express = require('express');
-const studentsRouter = require('../routes/students.js');
+const router = require('../routes/students.js');
 const cors = require('cors');
 const { run } = require('../db.js');
 
@@ -22,7 +22,7 @@ run()
   });
 
 // Define routes
-app.use('/api/students', studentsRouter);
+app.use('/api/students', router);
 
 // Define your Cloud Function
 exports.app = functions.https.onRequest(app);
