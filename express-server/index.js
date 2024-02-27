@@ -1,3 +1,4 @@
+const functions = require('firebase-functions');
 const express = require('express');
 const mongoose = require('mongoose');
 const studentsRouter = require('./routes/students');
@@ -22,3 +23,5 @@ const port = process.env.Port || 8080;
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });
+
+exports.api = functions.https.onRequest(app);

@@ -18,6 +18,6 @@ const logger = require('firebase-functions/logger');
 
 // eslint-disable-next-line quotes
 const functions = require('firebase-functions');
-// eslint-disable-next-line quotes
+// // eslint-disable-next-line quotes
 const app = require('./index'); // path to your Express app
 exports.api = functions.https.onRequest(app);
