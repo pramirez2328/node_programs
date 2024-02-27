@@ -19,7 +19,7 @@ app.use((req, res, next) => {
   res.status(404).send('Bad network request. Please try again. ');
 });
 
-const port = process.env.Port || 8080;
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
+const PORT = process.env.Port || 8080;
+app.listen(PORT, () => {
+  console.log(`Example app listening at http://localhost:${PORT}`);
 });
