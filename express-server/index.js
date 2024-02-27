@@ -1,4 +1,3 @@
-const functions = require('firebase-functions');
 const express = require('express');
 const mongoose = require('mongoose');
 const studentsRouter = require('./routes/students');
@@ -13,15 +12,13 @@ mongoose.connect('mongodb://localhost/students');
 const db = mongoose.connection;
 db.on('error', (error) => console.error(error));
 db.once('open', () => console.log('Connected to Database...'));
-app.use('/students', studentsRouter);
+app.use('/api/students', studentsRouter);
 
 app.use((req, res, next) => {
   res.status(404).send('Bad network request. Please try again. ');
 });
 
-const port = process.env.Port || 8080;
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
+const PORT = process.env.Port || 8080;
+app.listen(PORT, () => {
+  console.log(`Example app listening at http://localhost:${PORT}`);
 });
-
-exports.api = functions.https.onRequest(app);
