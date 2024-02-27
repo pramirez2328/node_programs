@@ -13,8 +13,14 @@
   },
   "main": "index.js",
   "dependencies": {
+    "body-parser": "1.18.2",
+    "cors": "^2.8.5",
+    "express": "4.16.2",
+    "express-joi-validation": "^5.0.1",
     "firebase-admin": "^11.8.0",
-    "firebase-functions": "^4.3.1"
+    "firebase-functions": "^4.7.0",
+    "mongodb": "^6.3.0",
+    "mongoose": "^8.1.2"
   },
   "devDependencies": {
     "firebase-functions-test": "^3.1.0"
