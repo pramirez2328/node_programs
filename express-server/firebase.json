@@ -3,14 +3,14 @@
     "rewrites": [
       {
         "source": "**",
-        "function": "students-db-server"
+        "function": "students-server"
       }
     ]
   },
   "functions": [
     {
-      "source": "functions",
-      "codebase": "default",
+      "source": "students-server",
+      "codebase": "students-server",
       "ignore": ["node_modules", ".git", "firebase-debug.log", "firebase-debug.*.log"]
     }
   ]
