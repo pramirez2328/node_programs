@@ -1,6 +1,6 @@
 const functions = require('firebase-functions');
 const express = require('express');
-const { run } = require('./db');
+const { run } = require('../db');
 const studentsRouter = require('../routes/students');
 const cors = require('cors');
 
