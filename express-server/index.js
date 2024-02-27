@@ -13,10 +13,14 @@ async function startApp() {
 
     mongoose.connect('mongodb://localhost/students');
 
+mongoose.connect('mongodb://localhost/students');
+app.options('*', cors());
+
     const db = mongoose.connection;
     db.on('error', (error) => console.error(error));
     db.once('open', () => console.log('Connected to Database...'));
     app.use('/api/students', studentsRouter);
+
 
     app.use((req, res, next) => {
       res.status(404).send('Bad network request. Please try again. ');
