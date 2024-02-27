@@ -8,6 +8,7 @@ app.use(cors());
 app.use(express.json());
 
 mongoose.connect('mongodb://localhost/students');
+app.options('*', cors());
 
 const db = mongoose.connection;
 db.on('error', (error) => console.error(error));
