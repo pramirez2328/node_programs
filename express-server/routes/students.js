@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const cors = require('cors');
-const Student = require('./student');
-const getStudent = require('./getStudent');
+const Student = require('../students-server/student');
+const getStudent = require('../students-server/getStudent');
 
 router.use(cors());
 
