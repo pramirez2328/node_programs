@@ -2,20 +2,21 @@ import { AddStudent, Student } from '../src/components/students/types';
 
 export const fetchStudents = async () => {
   try {
-    const response = await fetch('http://localhost:8080/students');
+    const response = await fetch(`${import.meta.env.VITE_APP_API_URL}/students`);
     if (!response.ok) {
       throw new Error('Failed to fetch students');
     }
     console.info('%c---Students were fetched from STUDENTS RECORDS!', 'color: green;');
     return await response.json();
   } catch (error) {
-    console.error(error);
+    console.error('Error: unable to fetch students', error);
+    return error;
   }
 };
 
 export const deleteStudent = async (id: number) => {
   try {
-    const response = await fetch(`http://localhost:8080/students/${id}`, {
+    const response = await fetch(`${import.meta.env.VITE_APP_API_URL}/students/${id}`, {
       method: 'DELETE',
     });
     if (!response.ok) {
@@ -31,7 +32,7 @@ export const deleteStudent = async (id: number) => {
 
 export const addStudent = async (student: AddStudent) => {
   try {
-    const response = await fetch('http://localhost:8080/students', {
+    const response = await fetch(`${import.meta.env.VITE_APP_API_URL}/students`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -51,7 +52,7 @@ export const addStudent = async (student: AddStudent) => {
 
 export const updateStudent = async (student: Student) => {
   try {
-    const response = await fetch(`http://localhost:8080/students/${student._id}`, {
+    const response = await fetch(`${import.meta.env.VITE_APP_API_URL}/students/${student._id}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',

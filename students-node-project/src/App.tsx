@@ -31,10 +31,17 @@ function App() {
 
   useEffect(() => {
     setValue('Choose...');
+
     const getStudents = async () => {
-      const students = await fetchStudents();
-      setStudents(students);
-      setAllStudents(students);
+      const existingStudents = await fetchStudents();
+      //if existingStudents is an error, alert the user
+      if (existingStudents instanceof Error) {
+        alert('Failed to fetch students');
+        return;
+      } else {
+        setStudents(existingStudents);
+        setAllStudents(existingStudents);
+      }
     };
     getStudents();
   }, []);
@@ -93,12 +100,13 @@ function App() {
       <p className='text-center mt-4 mb-0 title'>Boston University</p>
       <p className='text-center mb-4 mt-0 subtitle'>Students Records</p>
       <Students
-        students={students}
+        students={students || []}
         handleDelete={handleDeleteStudent}
         value={value}
         handleAddStudent={handleAddStudent}
         handleUpdateStudent={handleUpdateStudent}
       />
+      {students.length === 0 && <p className='text-center mt-4'>No students found</p>}
     </div>
   );
 }
