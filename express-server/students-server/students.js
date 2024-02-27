@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const cors = require('cors');
-const Student = require('../models/student');
-const getStudent = require('../middleware/getStudent');
+const Student = require('./student');
+const getStudent = require('./getStudent');
 
 router.use(cors());
 

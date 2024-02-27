@@ -36,7 +36,7 @@ function App() {
       const existingStudents = await fetchStudents();
       //if existingStudents is an error, alert the user
       if (existingStudents instanceof Error) {
-        alert('Failed to fetch students');
+        // alert('Failed to fetch students');
         return;
       } else {
         setStudents(existingStudents);

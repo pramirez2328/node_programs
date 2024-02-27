@@ -1,5 +1,5 @@
 // middleware/getStudent.js
-const Student = require('../models/student');
+const Student = require('./student');
 
 // Middleware function to get student object by ID
 async function getStudent(req, res, next) {
