@@ -12,6 +12,7 @@ router.use(express.json());
 router.get('/', async (req, res) => {
   try {
     const students = await Student.find();
+    console.log(students);
     res.json(students);
   } catch (error) {
     res.status(500).json({ message: error.message });
